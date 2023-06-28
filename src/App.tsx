@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import UserList from './components/UserList';
+import CreateUser from './components/CreateUser';
+import SendMessage from './components/SendMessage';
+import { useAppDispatch, useAppSelector } from './redux_toolkit/hooks';
+import LoginPage from './pages/LoginPage';
+import ChatRoomPage from './pages/ChatRoomPage';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
+  if (user && user.logged) {
+    return (
+      <div>
+        <ChatRoomPage />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <LoginPage />;
+      </div>
+    );
+  }
 }
 
 export default App;

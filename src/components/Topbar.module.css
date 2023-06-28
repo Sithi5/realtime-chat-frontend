@@ -1,0 +1,18 @@
+.topbar {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center horizontally */
+    padding: 10px;
+  }
+
+  .topbar__icon {
+    margin-right: 10px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .topbar__title {
+    margin: 0;
+  }
