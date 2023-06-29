@@ -18,7 +18,23 @@ const ChatRoomPage = () => {
   const [room, setRoom] = useState('');
 
   useEffect(() => {
+    async function fetchMessages() {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/chat/getMessage/${room}`
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const fetchedMessages = await response.json();
+        setMessages(fetchedMessages);
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
+    }
+
     if (room && room !== '') {
+      fetchMessages();
       const eventSource = new EventSource(
         'http://localhost:3000/chat/subscribe/' + room
       );
@@ -63,7 +79,7 @@ const ChatRoomPage = () => {
           body: JSON.stringify({
             message: newMessage,
             topic: room,
-            senderName: user.userName,
+            senderName: user.email,
           }),
         });
 
@@ -99,7 +115,7 @@ const ChatRoomPage = () => {
                 <div
                   key={index}
                   className={
-                    message.senderName === user.userName
+                    message.senderName === user.email
                       ? styles.messageSelf
                       : styles.messageOther
                   }
@@ -155,23 +171,32 @@ const ChatRoomPage = () => {
     return (
       <div>
         <Topbar />
-        <div className={styles.button_container}>
-          <button
-            className={styles.connect_button}
-            onClick={() => {
-              setRoom('chat-room1');
-            }}
-          >
-            room-1
-          </button>
-          <button
-            className={styles.connect_button}
-            onClick={() => {
-              setRoom('chat-room2');
-            }}
-          >
-            room-2
-          </button>
+        <div
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            display: 'flex',
+            height: '90vh',
+          }}
+        >
+          <div className={styles.button_container}>
+            <button
+              className={styles.connect_button}
+              onClick={() => {
+                setRoom('chat-room1');
+              }}
+            >
+              room-1
+            </button>
+            <button
+              className={styles.connect_button}
+              onClick={() => {
+                setRoom('chat-room2');
+              }}
+            >
+              room-2
+            </button>
+          </div>
         </div>
       </div>
     );

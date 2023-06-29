@@ -50,6 +50,25 @@
   margin-top: 5px;
 }
 
+.connect_button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.sendButton{
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+}
 .disconnect_button {
   background-color: #333;
   color: #fff;
