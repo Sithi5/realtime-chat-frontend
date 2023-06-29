@@ -27,7 +27,8 @@ const ChatRoomPage = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const fetchedMessages = await response.json();
-        setMessages(fetchedMessages);
+        const parsedMessages = fetchedMessages.map(JSON.parse);
+        setMessages(parsedMessages);
       } catch (error) {
         console.error('Error fetching messages:', error);
       }
